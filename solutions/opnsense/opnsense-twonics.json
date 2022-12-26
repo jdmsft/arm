@@ -90,7 +90,7 @@
                     "name": "ipconfig1",
                     "properties": {
                         "subnet": {
-                            "id": "[resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', variables('virtualMachineName'), parameters('existingUntrustedSubnetName'))]"
+                            "id": "[resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('existingUntrustedSubnetName'))]"
                         },
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIPAddress": {
@@ -116,7 +116,7 @@
                     "name": "ipconfig1",
                     "properties": {
                         "subnet": {
-                            "id": "[resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', variables('virtualMachineName'), parameters('existingTrustedSubnetName'))]"
+                            "id": "[resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('existingTrustedSubnetName'))]"
                         },
                         "privateIPAllocationMethod": "Dynamic"
                     }
