@@ -71,7 +71,9 @@
         "apiVersion": "2021-02-01",
         "name": "[variables('publicIPAddressName')]",
         "location": "[parameters('location')]",
-        "sku": "[parameters('PublicIPAddressSku')]",
+        "sku": {
+            "name": "[parameters('PublicIPAddressSku')]"
+        },
         "properties": {
             "publicIPAllocationMethod": "Static"
         }
