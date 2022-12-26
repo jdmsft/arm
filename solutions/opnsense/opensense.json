@@ -519,8 +519,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
-        "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]"
       ]
     },
     {
@@ -973,8 +972,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', variables('externalLoadBalanceName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('internalLoadBalanceName'))]",
-        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
-        "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]"
       ]
     },
     {
@@ -1434,8 +1432,7 @@
         "[resourceId('Microsoft.Resources/deployments', variables('externalLoadBalanceName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('internalLoadBalanceName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('VMOPNsenseSecondaryName'))]",
-        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
-        "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]"
       ]
     },
     {
@@ -1886,8 +1883,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
-        "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]"
       ]
     },
     {
@@ -2335,8 +2331,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
-        "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
+        "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]"
       ]
     }
   ]
