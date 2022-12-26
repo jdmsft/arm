@@ -159,7 +159,8 @@
                         "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('virtualMachineName'),'-NIC-WAN'))]"
                     }
                 ]
-            },
+            }
+        },
         "plan": {
             "name": "13_0-release",
             "publisher": "thefreebsdfoundation",
