@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "Network Security Group Name"
+            }
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-01-01",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroupName')]",
+            "location": "[resourceGroup().location]"
+        }
+    ]
+}

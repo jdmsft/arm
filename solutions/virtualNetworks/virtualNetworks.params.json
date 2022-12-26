@@ -1,0 +1,82 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "onPremNetwork": {
+            "value": {
+                "vnet": {
+                    "name": "LAN1",
+                    "addressPrefix": "192.168.0.0/24"
+                },
+                "subnets": [
+                    {
+                        "Name": "DefaultSubnet",
+                        "addressPrefix": "192.168.0.0/25"
+                    },
+                    {
+                        "Name": "GatewaySubnet",
+                        "addressPrefix": "192.168.0.224/27"
+                    }
+                ]
+            }
+        },
+        "hubNetwork": {
+            "value": {
+                "vnet": {
+                    "name": "HUB1",
+                    "addressPrefix": "10.0.0.0/16"
+                },
+                "subnets": [
+                    {
+                        "Name": "AzureFirewallSubnet",
+                        "addressPrefix": "10.0.0.0/26"
+                    },
+                    {
+                        "Name": "ManagementSubnet",
+                        "addressPrefix": "10.0.0.64/27"
+                    },
+                    {
+                        "Name": "GatewaySubnet",
+                        "addressPrefix": "10.0.255.224/27"
+                    }
+                ]
+            }
+        },
+        "spokeNetworks": {
+            "value": [
+                {
+                    "vnet": {
+                        "name": "SPK1",
+                        "addressPrefix": "10.1.0.0/16"
+                    },
+                    "subnets": [
+                        {
+                            "Name": "ManagementSubnet",
+                            "addressPrefix": "10.1.0.64/27"
+                        },
+                        {
+                            "Name": "WorkloadSubnet",
+                            "addressPrefix": "10.1.1.0/24"
+                        }
+                    ]
+                },
+                {
+                    "vnet": {
+                        "name": "SPK2",
+                        "addressPrefix": "10.2.0.0/16"
+                    },
+                    "subnets": [
+                        {
+                            "Name": "ManagementSubnet",
+                            "addressPrefix": "10.2.0.64/27"
+                        },
+                        {
+                            "Name": "WorkloadSubnet",
+                            "addressPrefix": "10.2.1.0/24"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

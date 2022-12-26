@@ -1,0 +1,94 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "onPremNetwork": {
+            "type": "object"
+        },
+        "hubNetwork": {
+            "type": "object"
+        },
+        "spokeNetworks": {
+            "type": "array"
+        }
+    },
+    "variables": {
+        "templateUri": "https://raw.githubusercontent.com/jdmsft/arm/main/templates/"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[concat(deployment().name,'_onPremNetwork')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateUri'),'virtualNetwork.json')]",
+                    "contentVersion": "1.1.0.0"
+                },
+                "parameters": {
+                    "vnetName": {
+                        "value": "[parameters('onPremNetwork').vnet.name]"
+                    },
+                    "vnetAddressPrefix": {
+                        "value": "[parameters('onPremNetwork').vnet.addressPrefix]"
+                    },
+                    "subnets": {
+                        "value": "[parameters('onPremNetwork').subnets]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[concat(deployment().name,'_hubNetwork')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateUri'),'virtualNetwork.json')]",
+                    "contentVersion": "1.1.0.0"
+                },
+                "parameters": {
+                    "vnetName": {
+                        "value": "[parameters('hubNetwork').vnet.name]"
+                    },
+                    "vnetAddressPrefix": {
+                        "value": "[parameters('hubNetwork').vnet.addressPrefix]"
+                    },
+                    "subnets": {
+                        "value": "[parameters('hubNetwork').subnets]"
+                    }
+                }
+            }
+        },
+        {
+            "copy": {
+                "name": "spokeNetworksCopy",
+                "count": "[length(parameters('spokeNetworks'))]"
+            },
+            "apiVersion": "2017-05-10",
+            "name": "[concat(deployment().name,'_spokeNetwork',copyIndex(1))]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateUri'),'virtualNetwork.json')]",
+                    "contentVersion": "1.1.0.0"
+                },
+                "parameters": {
+                    "vnetName": {
+                        "value": "[parameters('spokeNetworks')[copyIndex('spokeNetworksCopy')].vnet.name]"
+                    },
+                    "vnetAddressPrefix": {
+                        "value": "[parameters('spokeNetworks')[copyIndex('spokeNetworksCopy')].vnet.addressPrefix]"
+                    },
+                    "subnets": {
+                        "value": "[parameters('spokeNetworks')[copyIndex('spokeNetworksCopy')].subnets]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
