@@ -79,7 +79,6 @@
     "VMOPNsensePrimaryName": "[format('{0}-Primary', parameters('virtualMachineName'))]",
     "VMOPNsenseSecondaryName": "[format('{0}-Secondary', parameters('virtualMachineName'))]",
     "publicIPAddressName": "[format('{0}-PIP', parameters('virtualMachineName'))]",
-    "networkSecurityGroupName": "[format('{0}-NSG', parameters('virtualMachineName'))]",
     "externalLoadBalanceName": "External-LoadBalance",
     "externalLoadBalanceFIPConfName": "FW",
     "externalLoadBalanceBAPName": "OPNSense",
@@ -520,7 +519,6 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
         "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
       ]
@@ -574,9 +572,6 @@
           },
           "virtualMachineSize": {
             "value": "[parameters('virtualMachineSize')]"
-          },
-          "nsgId": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))).outputs.nsgID.value]"
           },
           "ExternalLoadBalancerBackendAddressPoolId": {
             "value": "[if(equals(parameters('scenarioOption'), 'Active-Active'), reference(resourceId('Microsoft.Resources/deployments', variables('externalLoadBalanceName')), '2020-10-01').outputs.backendAddressPools.value[0].id, '')]"
@@ -802,9 +797,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -923,9 +915,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -984,7 +973,6 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', variables('externalLoadBalanceName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('internalLoadBalanceName'))]",
-        "[resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
         "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
       ]
@@ -1039,9 +1027,6 @@
           },
           "virtualMachineSize": {
             "value": "[parameters('virtualMachineSize')]"
-          },
-          "nsgId": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))).outputs.nsgID.value]"
           },
           "ExternalLoadBalancerBackendAddressPoolId": {
             "value": "[if(equals(parameters('scenarioOption'), 'Active-Active'), reference(resourceId('Microsoft.Resources/deployments', variables('externalLoadBalanceName')), '2020-10-01').outputs.backendAddressPools.value[0].id, '')]"
@@ -1272,9 +1257,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -1393,9 +1375,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -1454,7 +1433,6 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', variables('externalLoadBalanceName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('internalLoadBalanceName'))]",
-        "[resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('VMOPNsenseSecondaryName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
         "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
@@ -1513,9 +1491,6 @@
           },
           "publicIPId": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))).outputs.publicipId.value]"
-          },
-          "nsgId": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))).outputs.nsgID.value]"
           }
         },
         "template": {
@@ -1737,9 +1712,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -1858,9 +1830,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -1917,7 +1886,6 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
         "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
       ]
@@ -1972,9 +1940,6 @@
           },
           "publicIPId": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))).outputs.publicipId.value]"
-          },
-          "nsgId": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))).outputs.nsgID.value]"
           }
         },
         "template": {
@@ -2196,9 +2161,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -2317,9 +2279,6 @@
                       "location": "[parameters('Location')]",
                       "properties": {
                         "enableIPForwarding": "[parameters('enableIPForwarding')]",
-                        "networkSecurityGroup": {
-                          "id": "[parameters('nsgId')]"
-                        },
                         "ipConfigurations": [
                           {
                             "name": "ipconfig1",
@@ -2376,7 +2335,6 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', variables('networkSecurityGroupName'))]",
         "[resourceId('Microsoft.Resources/deployments', variables('publicIPAddressName'))]",
         "[resourceId('Microsoft.Resources/deployments', parameters('virtualNetworkName'))]"
       ]
