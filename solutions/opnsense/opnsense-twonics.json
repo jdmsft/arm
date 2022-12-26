@@ -187,7 +187,7 @@
                 "fileUris": [
                     "[format('{0}{1}', variables('OPNScriptURI'), variables('ShellScriptName'))]"
                 ],
-                "commandToExecute": "[format('sh {0} {1} {2} {3} {4} {5} {6}', variables('ShellScriptName'), variables('ShellScriptObj').OpnScriptURI, variables('ShellScriptObj').OpnType, if(not(empty(variables('ShellScriptObj').TrustedSubnetName)), reference(resourceId('Microsoft.Network/virtualNetworks/subnets', split(variables('ShellScriptObj').TrustedSubnetName, '/')[0], split(variables('ShellScriptObj').TrustedSubnetName, '/')[1]), '2020-11-01').addressPrefix, ''), if(not(empty(variables('ShellScriptObj').WindowsSubnetName)), reference(resourceId('Microsoft.Network/virtualNetworks/subnets', split(variables('ShellScriptObj').WindowsSubnetName, '/')[0], split(variables('ShellScriptObj').WindowsSubnetName, '/')[1]), '2020-11-01').addressPrefix, '1.1.1.1/32'), reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).properties.ipAddress, variables('ShellScriptObj').opnSenseSecondarytrustedNicIP)]"
+                "commandToExecute": "[format('sh {0} {1} {2} {3} {4} {5} {6}', variables('ShellScriptName'), variables('ShellScriptObj').OpnScriptURI, variables('ShellScriptObj').OpnType, variables('ShellScriptObj').TrustedSubnetName, '1.1.1.1/32', reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).properties.ipAddress, variables('ShellScriptObj').opnSenseSecondarytrustedNicIP)]"
             }
         },
         "dependsOn": [
