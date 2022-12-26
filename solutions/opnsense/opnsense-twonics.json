@@ -153,10 +153,12 @@
             "networkProfile": {
                 "networkInterfaces": [
                     {
-                        "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('virtualMachineName'),'-NIC-LAN'))]"
+                        "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('virtualMachineName'),'-NIC-LAN'))]",
+                        "properties": { "primary": true }
                     },
                     {
-                        "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('virtualMachineName'),'-NIC-WAN'))]"
+                        "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('virtualMachineName'),'-NIC-WAN'))]",
+                        "properties": { "primary": false }
                     }
                 ]
             }
