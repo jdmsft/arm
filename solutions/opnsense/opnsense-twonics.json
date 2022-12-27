@@ -57,7 +57,7 @@
     "OpnScriptName": "myCustomScript.sh",
     "OpnScriptURI": "[concat('https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/',variables('OpnScriptName'))]",
     "OpnScriptParams": {
-        "ScriptUri": "[variables('OpnScriptURI')]",
+        "ScriptUri": "https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/myCustomScript.sh",
         "Scnenario": "null",
         "TrustedNicIpAddress": "null",
         "WindowsVMSubnet": "1.1.1.1/32",
