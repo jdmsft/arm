@@ -55,7 +55,7 @@
     "TempPassword": "[guid(subscription().id, resourceGroup().id)]",
     "publicIPAddressName": "[format('{0}-PIP', variables('virtualMachineName'))]",
     "OpnScriptName": "myCustomScript.sh",
-    "OpnScriptURI": "[concat('https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/',variables('OpnScriptURI'))]",
+    "OpnScriptURI": "[concat('https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/',variables('OpnScriptName'))]",
     "OpnScriptParams": {
         "ScriptUri": "[variables('OpnScriptURI'))]",
         "Scnenario": "null",
