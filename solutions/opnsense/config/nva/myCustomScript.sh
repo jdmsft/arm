@@ -26,30 +26,30 @@ sed -i "" 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i "" "s/reboot/shutdown -r +1/g" opnsense-bootstrap.sh.in
 sh ./opnsense-bootstrap.sh.in -y -r "22.7"
 
-# Install Azure waagent
-fetch https://github.com/Azure/WALinuxAgent/archive/refs/tags/v2.8.0.11.tar.gz
-tar -xvzf v2.8.0.11.tar.gz
-cd WALinuxAgent-2.8.0.11/
-python3 setup.py install --register-service --lnx-distro=freebsd --force
-cd ..
-ln -s /usr/local/bin/python3.9 /usr/local/bin/python
-sed -i "" 's/ResourceDisk.EnableSwap=y/ResourceDisk.EnableSwap=n/' /etc/waagent.conf
-fetch $1actions_waagent.conf
-cp actions_waagent.conf /usr/local/opnsense/service/conf/actions.d
-
-# Remove wrong route at initialization
-cat > /usr/local/etc/rc.syshook.d/start/22-remoteroute <<EOL
-#!/bin/sh
-route delete 168.63.129.16
-EOL
-chmod +x /usr/local/etc/rc.syshook.d/start/22-remoteroute
-
-#Adds support to LB probe from IP 168.63.129.16
-# Add Azure VIP on Arp table
-echo # Add Azure Internal VIP >> /etc/rc.conf
-echo static_arp_pairs=\"azvip\" >>  /etc/rc.conf
-echo static_arp_azvip=\"168.63.129.16 12:34:56:78:9a:bc\" >> /etc/rc.conf
-# Makes arp effective
-service static_arp start
-# To survive boots adding to OPNsense Autorun/Bootup:
-echo service static_arp start >> /usr/local/etc/rc.syshook.d/start/20-freebsd
+## Install Azure waagent
+#fetch https://github.com/Azure/WALinuxAgent/archive/refs/tags/v2.8.0.11.tar.gz
+#tar -xvzf v2.8.0.11.tar.gz
+#cd WALinuxAgent-2.8.0.11/
+#python3 setup.py install --register-service --lnx-distro=freebsd --force
+#cd ..
+#ln -s /usr/local/bin/python3.9 /usr/local/bin/python
+#sed -i "" 's/ResourceDisk.EnableSwap=y/ResourceDisk.EnableSwap=n/' /etc/waagent.conf
+#fetch $1actions_waagent.conf
+#cp actions_waagent.conf /usr/local/opnsense/service/conf/actions.d
+#
+## Remove wrong route at initialization
+#cat > /usr/local/etc/rc.syshook.d/start/22-remoteroute <<EOL
+##!/bin/sh
+#route delete 168.63.129.16
+#EOL
+#chmod +x /usr/local/etc/rc.syshook.d/start/22-remoteroute
+#
+##Adds support to LB probe from IP 168.63.129.16
+## Add Azure VIP on Arp table
+#echo # Add Azure Internal VIP >> /etc/rc.conf
+#echo static_arp_pairs=\"azvip\" >>  /etc/rc.conf
+#echo static_arp_azvip=\"168.63.129.16 12:34:56:78:9a:bc\" >> /etc/rc.conf
+## Makes arp effective
+#service static_arp start
+## To survive boots adding to OPNsense Autorun/Bootup:
+#echo service static_arp start >> /usr/local/etc/rc.syshook.d/start/20-freebsd
