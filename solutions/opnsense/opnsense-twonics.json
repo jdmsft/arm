@@ -54,8 +54,9 @@
     "TempUsername": "azureuser",
     "TempPassword": "[guid(subscription().id, resourceGroup().id)]",
     "publicIPAddressName": "[format('{0}-PIP', variables('virtualMachineName'))]",
+    "OpnScriptOriginUri": "https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/",
     "OpnScriptName": "myCustomScript.sh",
-    "OpnScriptURI": "[concat('https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/',variables('OpnScriptName'))]",
+    "OpnScriptFullUri": "[concat(variables('OpnScriptOriginUri'),variables('OpnScriptName'))]",
     "OpnScriptParams": {
         "ScriptUri": "https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/myCustomScript.sh",
         "Scnenario": "null",
@@ -185,9 +186,9 @@
             "autoUpgradeMinorVersion": false,
             "settings": {
                 "fileUris": [
-                    "[variables('OpnScriptURI')]"
+                    "[variables('OpnScriptFullUri')]"
                 ],
-                "commandToExecute": "[format('sh {0} {1} {2} {3} {4} {5} {6}',variables('OpnScriptName'),variables('OpnScriptURI'),variables('OpnScriptParams').Scnenario,reference(resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('existingTrustedSubnetName')),'2020-11-01').addressPrefix,variables('OpnScriptParams').WindowsVMSubnet,variables('OpnScriptParams').ElbVipAddress,variables('OpnScriptParams').PrivateIpSecondaryServer)]"
+                "commandToExecute": "[format('sh {0} {1} {2} {3} {4} {5} {6}',variables('OpnScriptName'),variables('OpnScriptOriginUri'),variables('OpnScriptParams').Scnenario,reference(resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('existingTrustedSubnetName')),'2020-11-01').addressPrefix,variables('OpnScriptParams').WindowsVMSubnet,variables('OpnScriptParams').ElbVipAddress,variables('OpnScriptParams').PrivateIpSecondaryServer)]"
             }
         },
         "dependsOn": [
