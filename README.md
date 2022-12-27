@@ -8,6 +8,7 @@ Repo structure:
 ## Solutions
 
 * [virtualNetworks](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjdmsft%2Farm%2Fmain%2Fsolutions%2FvirtualNetworks%2Fazuredeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Farm%2Fmain%2Fsolutions%2FvirtualNetworks%2FcreateUiDefinition.json)
+* OPNsense *(not finished)*
 
 
 To generate a Deploy to Azure link use : `'https://portal.azure.com/#create/Microsoft.Template/uri/'+$([uri]::EscapeDataString($url))` by replacing `$uri` by your uri.
