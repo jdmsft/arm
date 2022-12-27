@@ -54,15 +54,15 @@
     "TempUsername": "azureuser",
     "TempPassword": "[guid(subscription().id, resourceGroup().id)]",
     "publicIPAddressName": "[format('{0}-PIP', variables('virtualMachineName'))]",
-    "OpnScriptURI": "https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/",
-    "ShellScriptName": "configureopnsense.sh",
-    "ShellScriptObj": {
-        "OpnScriptURI": "[variables('OpnScriptURI')]",
-        "OpnType": "TwoNics",
-        "TrustedSubnetName": "[resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('existingTrustedSubnetName'))]",
-        "WindowsSubnetName": "",
-        "publicIPAddress": "",
-        "opnSenseSecondarytrustedNicIP": ""
+    "OpnScriptName": "myCustomScript.sh",
+    "OpnScriptURI": "[concat('https://raw.githubusercontent.com/jdmsft/arm/main/solutions/opnsense/config/nva/',variables('OpnScriptURI'))]",
+    "OpnScriptParams": {
+        "ScriptUri": "[variables('OpnScriptURI'))]",
+        "Scnenario": "null",
+        "TrustedNicIpAddress": "null",
+        "WindowsVMSubnet": "1.1.1.1/32",
+        "ElbVipAddress": "null",
+        "PrivateIpSecondaryServer": "null"
     }
   },
   "resources": [
@@ -185,9 +185,9 @@
             "autoUpgradeMinorVersion": false,
             "settings": {
                 "fileUris": [
-                    "[format('{0}{1}', variables('OPNScriptURI'), variables('ShellScriptName'))]"
+                    "[variables('OpnScriptURI')]"
                 ],
-                "commandToExecute": "[format('sh {0} {1} {2} {3} {4} {5} {6}', variables('ShellScriptName'), variables('ShellScriptObj').OpnScriptURI, variables('ShellScriptObj').OpnType, variables('ShellScriptObj').TrustedSubnetName, '1.1.1.1/32', reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).ipAddress, variables('ShellScriptObj').opnSenseSecondarytrustedNicIP)]"
+                "commandToExecute": "[format('sh {0} {1} {2} {3} {4} {5} {6}',variables('OpnScriptName'),variables('OpnScriptURI'),variables('OpnScriptParams').Scnenario,reference(resourceId(parameters('virtualNetworkRgName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('existingTrustedSubnetName')),'2020-11-01').addressPrefix,variables('OpnScriptParams').WindowsVMSubnet,variables('OpnScriptParams').ElbVipAddress,variables('OpnScriptParams').PrivateIpSecondaryServer)]"
             }
         },
         "dependsOn": [
